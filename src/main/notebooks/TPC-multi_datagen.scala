@@ -1,9 +1,9 @@
 // Databricks notebook source
 // Multi TPC- H and DS generator and database importer using spark-sql-perf, typically to generate parquet files in S3/blobstore objects
-val benchmarks = Seq("TPCDS", "TPCH") // Options: TCPDS", "TPCH"
-val scaleFactors = Seq("1", "10", "100", "1000", "10000") // "1", "10", "100", "1000", "10000" list of scale factors to generate and import
+val benchmarks = Seq("TPCH") // Options: TCPDS", "TPCH"
+val scaleFactors = Seq("1") // "1", "10", "100", "1000", "10000" list of scale factors to generate and import
 
-val baseLocation = s"s3a://mybucket" // S3 bucket, blob, or local root path
+val baseLocation = s"/Users/alex.behm/spark-sql-perf/tpc" // S3 bucket, blob, or local root path
 val baseDatagenFolder = "/tmp"  // usually /tmp if enough space is available for datagen files
 
 // Output file formats
@@ -41,7 +41,7 @@ import org.apache.spark.deploy.SparkHadoopUtil
 
 // Set Spark config to produce same and comparable source files across systems 
 // do not change unless you want to derive from default source file composition, in that case also set a DB suffix 
-spark.sqlContext.setConf("spark.sql.parquet.compression.codec", "snappy")
+spark.sqlContext.setConf("spark.sql.parquet.compression.codec", "uncompressed")
 
 // Prevent very large files. 20 million records creates between 500 and 1500MB files in TPCH
 spark.sqlContext.setConf("spark.sql.files.maxRecordsPerFile", "20000000")  // This also regulates the file coalesce
