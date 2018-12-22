@@ -15,7 +15,8 @@ val overwrite = false //if to delete existing files (doesn't check if results ar
 val createTableStats = true
 val createColumnStats = true
 
-val workers: Int = spark.conf.get("spark.databricks.clusterUsageTags.clusterTargetWorkers").toInt //number of nodes, assumes one executor per node
+val workers = 0
+// val workers: Int = spark.conf.get("spark.databricks.clusterUsageTags.clusterTargetWorkers").toInt //number of nodes, assumes one executor per node
 val cores: Int = Runtime.getRuntime.availableProcessors.toInt //number of CPU-cores
 
 val dbSuffix = "" // set only if creating multiple DBs or source file folders with different settings, use a leading _
